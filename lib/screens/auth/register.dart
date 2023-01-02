@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:role_based_app/screens/auth/login.dart';
@@ -22,13 +24,12 @@ class _RegisterState extends State<Register> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
   }
 
-  void Signup() {
+  void signUp() {
     setState(() {
       loading = true;
     });
@@ -131,7 +132,7 @@ class _RegisterState extends State<Register> {
                       loading: loading,
                       onTap: () {
                         if (_formKey.currentState!.validate()) {
-                          Signup();
+                          signUp();
                         }
                       },
                     ),

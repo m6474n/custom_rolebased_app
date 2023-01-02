@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/round_button.dart';
+
 class VerificationPage extends StatefulWidget {
- final String vertficationId ;
+  final String vertficationId;
 
-
-
-  const  VerificationPage({Key? key, required this.vertficationId}) : super(key: key);
+  const VerificationPage({Key? key, required this.vertficationId})
+      : super(key: key);
 
   @override
   State<VerificationPage> createState() => _VerificationPageState();
 }
 
 class _VerificationPageState extends State<VerificationPage> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,15 +23,12 @@ class _VerificationPageState extends State<VerificationPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextFormField(
-              decoration: InputDecoration(
-                  hintText: '6 digit code'
-              ),
+              decoration: const InputDecoration(hintText: '6 digit code'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
-            RoundButton(title: 'Verify', onTap: (){})
-
+            RoundButton(title: 'Verify', onTap: () {})
           ],
         ),
       ),

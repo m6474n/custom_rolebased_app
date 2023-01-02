@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_final_fields
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,25 +21,29 @@ class _LoginScreenState extends State<LoginScreen> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  bool loading =false;
+  bool loading = false;
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     emailController.dispose();
     passwordController.dispose();
   }
 
-  void login() { setState(() {
-    loading = true;
-  });
-    _auth.signInWithEmailAndPassword(email: emailController.text.toString(),
-        password: passwordController.text.toString()).then((value) {
-      Utils().onSuccess(value.user!.email.toString()); setState(() {
+  void login() {
+    setState(() {
+      loading = true;
+    });
+    _auth
+        .signInWithEmailAndPassword(
+            email: emailController.text.toString(),
+            password: passwordController.text.toString())
+        .then((value) {
+      Utils().onSuccess(value.user!.email.toString());
+      setState(() {
         loading = false;
       });
-      Navigator.push(context, MaterialPageRoute(builder: (context)=> StudentScreen()));
-
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const StudentScreen()));
     }).onError((error, stackTrace) {
       setState(() {
         loading = false;
@@ -63,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 style: TextStyle(
                     fontSize: 36,
                     color: Colors.deepPurple,
-
                     fontWeight: FontWeight.bold),
               ),
               const Text(
@@ -116,11 +121,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 10,
                       ),
-
                       const SizedBox(
                         height: 50,
                       ),
-
                       RoundButton(
                         title: 'Login',
                         loading: loading,
@@ -138,33 +141,43 @@ class _LoginScreenState extends State<LoginScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Text("don't have any account?",
-                              style: TextStyle(
-                                  fontSize: 16)),
-                          TextButton(onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (context) => const Register()));
-                          }, child: const Text('Register',
-                              style: TextStyle(
-                                fontSize: 16,))
-                          )
+                              style: TextStyle(fontSize: 16)),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Register()));
+                              },
+                              child: const Text('Register',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  )))
                         ],
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                   InkWell(
-                     onTap: (){
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=>const PhoneLogin()));
-                     },
-                     child: Container(
-                       height: 50,
-                       decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(12),
-                         border: Border.all(color: Colors.deepPurple)
-                       ),
-                       child: const Center(child: Text('Login with Phone' ,style: TextStyle(color: Colors.deepPurple),)),
-                     ),
-                   )
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const PhoneLogin()));
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(color: Colors.deepPurple)),
+                          child: const Center(
+                              child: Text(
+                            'Login with Phone',
+                            style: TextStyle(color: Colors.deepPurple),
+                          )),
+                        ),
+                      )
                     ],
                   ),
                 ),

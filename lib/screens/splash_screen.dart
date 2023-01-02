@@ -13,7 +13,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     splashScreen.isLogin(context);
   }
@@ -22,7 +21,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('Role Based App' , style: TextStyle(fontSize: 30),),
+        child: Text(
+          'Role Based App',
+          style: TextStyle(fontSize: 30),
+        ),
       ),
     );
   }

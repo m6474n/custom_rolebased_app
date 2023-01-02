@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'dart:async';
 
 // import 'dart:html';
@@ -21,15 +23,15 @@ class SplashServices {
                     MaterialPageRoute(
                         builder: (context) => const StudentScreen()))
               });
-    }else{
+    } else {
       Timer(
           const Duration(seconds: 3),
-              () => {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()))
-          });
+          () => {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LoginScreen()))
+              });
     }
-
-
   }
 }

@@ -19,7 +19,7 @@ class _StudentScreenState extends State<StudentScreen> {
   final ref = FirebaseDatabase.instance.ref('Post');
   FirebaseAuth auth = FirebaseAuth.instance;
   final postController = TextEditingController();
-
+final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -47,13 +47,82 @@ class _StudentScreenState extends State<StudentScreen> {
           automaticallyImplyLeading: false,
         ),
         body: Column(children: [
+
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextFormField(
+              onChanged: (String value){
+                setState(() {
+
+                });
+              },
+              controller: searchController,
+              decoration: InputDecoration(
+                hintText: 'Search',
+                    border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+
+/////////////////////// Stream Builder /////////////////////
+          // Expanded(
+          //   child: Container(
+          //     child: StreamBuilder(
+          //       stream: ref.onValue,
+          //       builder:(context, snapshot){
+          //
+          //         if(!snapshot.hasData){
+          //           return CircularProgressIndicator();
+          //         }else{
+          //           Map<dynamic , dynamic> map = snapshot.data!.snapshot.value as dynamic;
+          //           List<dynamic> list = [];
+          //           list.clear();
+          //           list = map.values.toList();
+          //           return ListView.builder(
+          //               itemCount: snapshot.data!.snapshot.children.length,
+          //               itemBuilder: (context, index){
+          //
+          //                 return  ListTile(
+          //                   title: Text(list[index]['message']),
+          //                 );
+          //               });
+          //         }
+          //
+          //
+          //
+          //       },
+          //     ),
+          //   ),
+          // ),
+          //
+
+//////////////////// Firebase Animated List////////////////////////
           Expanded(
             child: FirebaseAnimatedList(
                 query: ref,
                 itemBuilder: (context, snapshot, animation, index) {
-                  return ListTile(
-                    title: Text(snapshot.child('message').value.toString()),
-                  );
+
+//////////////////// Filter List  Using Search Bar /////////////////////
+                  final title = snapshot.child('message').value.toString();
+                    if(searchController.text.isEmpty){
+                      return ListTile(
+                        title: Text(snapshot.child('message').value.toString()),
+                      );
+
+                    }else if(title.toLowerCase().contains(searchController.text.toLowerCase())){
+
+                      return ListTile(
+                        title: Text(snapshot.child('message').value.toString()),
+                      );
+                    }else{
+
+                      return Container(
+
+                      );
+                    }
+
+
+
                 }),
           )
         ]),

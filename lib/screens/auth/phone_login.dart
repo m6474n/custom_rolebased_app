@@ -20,56 +20,61 @@ class _PhoneLoginState extends State<PhoneLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextFormField(
-              keyboardType: TextInputType.number,
-              controller: phoneController,
-              decoration: const InputDecoration(
-                  hintText: '+1 123 3456 6789'
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            RoundButton(title: 'Continue with phone',loading: loading, onTap: () {
-              setState(() {
-                loading = true;
-              });
-              auth.verifyPhoneNumber(
-                phoneNumber: phoneController.text,
-                  verificationCompleted: (_){
-                    setState(() {
-                      loading = false;
-                    });
-                  },
-                  verificationFailed: (e){
-                    setState(() {
-                      loading = false;
-                    });
-                  Utils().onError(e.toString());
-                  },
-                  codeSent: (String verificationId , int? token){
-                    setState(() {
-                      loading = false;
-                    });
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> VerificationPage(vertficationId: verificationId,)));
-                  },
-                  codeAutoRetrievalTimeout: (e){
-                    setState(() {
-                      loading = false;
-                    });
-                    Utils().onError(e.toString());
-                  },);
-            })
+      appBar: AppBar(title: const Text('Phone Number Verification'),),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            children: [
+              const  SizedBox(height: 30,),
+              TextFormField(
+                controller: phoneController,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    label: Text('Phone Number'),
+                    hintText: '+1 234 4567 6789'
+                ),
+              )
+              , const SizedBox(height: 30,),
+              RoundButton(title: 'Get OTP', loading: loading, onTap: () {
+                setState(() {
+                  loading = true;
+                });
 
-          ],
-        ),
-      ),
+                auth.verifyPhoneNumber(
+                    phoneNumber: phoneController.text,
+                    verificationCompleted: (_) {
+                      setState(() {
+                        loading = false;
+                      });
+
+                    },
+                    verificationFailed: (e) {
+                      Utils().onError(e.toString());
+                      setState(() {
+                        loading = false;
+                      });
+
+                    },
+                    codeSent: (String verificationId, int? token) {
+                      setState(() {
+                        loading = false;
+                      });
+
+                      Navigator.push(context, MaterialPageRoute(
+                          builder: (context) =>
+                              VerificationPage(verifyId: verificationId)));
+                    },
+                    codeAutoRetrievalTimeout: (e) {
+                      setState(() {
+                        loading = false;
+                      });
+
+                      Utils().onError(e.toString());
+                    });
+              })
+            ],
+          ),
+        )
     );
   }
 }

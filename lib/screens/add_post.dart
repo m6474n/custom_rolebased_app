@@ -34,6 +34,7 @@ class _AddPostState extends State<AddPost> {
               controller: postController,
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
+
                   hintText: "What's in your mind?"),
             ),
             const  SizedBox(

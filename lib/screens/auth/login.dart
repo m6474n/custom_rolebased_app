@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Text("don't have any account?",
+                          const Text("Don't have any account?",
                               style: TextStyle(fontSize: 16)),
                           TextButton(
                               onPressed: () {
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         builder: (context) =>
                                             const Register()));
                               },
-                              child: const Text('Register',
+                              child: const Text('Register.',
                                   style: TextStyle(
                                     fontSize: 16,
                                   )))
@@ -159,25 +159,21 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const PhoneLogin()));
-                        },
-                        child: Container(
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(color: Colors.deepPurple)),
-                          child: const Center(
-                              child: Text(
-                            'Login with Phone',
-                            style: TextStyle(color: Colors.deepPurple),
-                          )),
+                    InkWell(
+                      onTap: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const PhoneLogin()));
+                      },
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          border:  Border.all(color: Colors.deepPurple),
+                          borderRadius: BorderRadius.circular(10),
+
+
                         ),
-                      )
+                        child:const Center(child: Text('Login with Phone', style: TextStyle(fontSize: 15, color: Colors.deepPurple),)),
+                      ),
+                    )
                     ],
                   ),
                 ),

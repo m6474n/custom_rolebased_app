@@ -19,7 +19,9 @@ class _StudentScreenState extends State<StudentScreen> {
   final ref = FirebaseDatabase.instance.ref('Post');
   FirebaseAuth auth = FirebaseAuth.instance;
   final postController = TextEditingController();
-final searchController = TextEditingController();
+  final searchController = TextEditingController();
+  final editController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -28,6 +30,7 @@ final searchController = TextEditingController();
         return true;
       },
       child: Scaffold(
+        resizeToAvoidBottomInset : false,
         appBar: AppBar(
           actions: [
             IconButton(
@@ -43,23 +46,22 @@ final searchController = TextEditingController();
                 },
                 icon: const Icon(Icons.logout_outlined))
           ],
-          title: const Text('Student'),
+          title: Text('Posts'),
           automaticallyImplyLeading: false,
         ),
         body: Column(children: [
-
+          SizedBox(height: 20,),
+          Image(image: AssetImage('assets/post.png'),height: 200,),
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: TextFormField(
-              onChanged: (String value){
-                setState(() {
-
-                });
+              onChanged: (String value) {
+                setState(() {});
               },
               controller: searchController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Search',
-                    border: OutlineInputBorder(),
+                border: OutlineInputBorder(),
               ),
             ),
           ),
@@ -101,79 +103,125 @@ final searchController = TextEditingController();
             child: FirebaseAnimatedList(
                 query: ref,
                 itemBuilder: (context, snapshot, animation, index) {
-
 //////////////////// Filter List  Using Search Bar /////////////////////
                   final title = snapshot.child('message').value.toString();
-                    if(searchController.text.isEmpty){
-                      return ListTile(
+                  if (searchController.text.isEmpty) {
+                    return ListTile(
                         title: Text(snapshot.child('message').value.toString()),
-                      );
+                        trailing: PopupMenuButton(
+                          icon: const Icon(Icons.more_vert),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                                child: ListTile(
+                              leading: const Icon(Icons.edit),
+                              title: const Text('Edit'),
+                              onTap: () {
+                                Navigator.pop(context);
+                                showMyDialogue(title,
+                                    snapshot.child('id').value.toString());
+                              },
+                            )),
+                             PopupMenuItem(
+                                child: ListTile(
 
-                    }else if(title.toLowerCase().contains(searchController.text.toLowerCase())){
-
-                      return ListTile(
-                        title: Text(snapshot.child('message').value.toString()),
-                      );
-                    }else{
-
-                      return Container(
-
-                      );
-                    }
-
-
-
+                              leading: const Icon(Icons.delete),
+                              title:const Text('Delete'),
+                                  onTap: (){
+                                Navigator.pop(context);
+                                ref.child(snapshot.child('id').value.toString()).remove();
+                                  },
+                            )),
+                          ],
+                        ));
+                  } else if (title
+                      .toLowerCase()
+                      .contains(searchController.text.toLowerCase())) {
+                    return ListTile(
+                      title: Text(snapshot.child('message').value.toString()),
+                    );
+                  } else {
+                    return Container();
+                  }
                 }),
           )
         ]),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    title: const Text('Add Post'),
-                    content: TextFormField(
-                      controller: postController,
-                      maxLines: 4,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "What's in your mind?"),
-                    ),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            addPost();
-                            ref
-                                .child(DateTime.now()
-                                    .millisecondsSinceEpoch
-                                    .toString())
-                                .set({
-                              'id': DateTime.now()
-                                  .millisecondsSinceEpoch
-                                  .toString(),
-                              'message': postController.text.toString(),
-                            }).then((value) {
-                              postController.clear();
-                              Utils().onSuccess('Post Added!');
-                            }).onError((error, stackTrace) {
-                              Utils().onError(error.toString());
-                            });
-                          },
-                          child: const Text('Add'))
-                    ],
-                  )),
+          onPressed: () =>
+          {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AddPost()))
+          },
+              // showDialog(
+              // context: context,
+              // builder: (context) => AlertDialog(
+              //       title: const Text('Add Post'),
+              //       content: TextFormField(
+              //         controller: postController,
+              //         maxLines: 4,
+              //         decoration: const InputDecoration(
+              //             border: OutlineInputBorder(),
+              //             hintText: "What's in your mind?"),
+              //       ),
+              //       actions: [
+              //         TextButton(
+              //             onPressed: () {
+              //               Navigator.of(context).pop();
+              //               String id = DateTime.now()
+              //                   .millisecondsSinceEpoch
+              //                   .toString();
+              //               ref.child(id).set({
+              //                 'id': id,
+              //                 'message': postController.text.toString(),
+              //               }).then((value) {
+              //                 postController.clear();
+              //                 Utils().onSuccess('Post Added!');
+              //               }).onError((error, stackTrace) {
+              //                 Utils().onError(error.toString());
+              //               });
+              //             },
+              //             child: const Text('Add'))
+              //       ],
+              //     )),
 
-          // {
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => AddPost()));
-
-          // },
           child: const Icon(Icons.add),
         ),
       ),
     );
   }
 
-  void addPost() {
-    Navigator.of(context).pop();
+  Future<void> showMyDialogue(String msg, String postId) async {
+    editController.text = msg;
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text('Edit'),
+              content: Container(
+                child: TextField(
+                  controller: editController,
+                  decoration: const InputDecoration(
+                    hintText: 'Write Something!',
+                  ),
+                ),
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      ref.child(postId).update({
+                        'message': editController.text.toString()
+                      }).then((value) {
+                        Utils().onSuccess("Post Updated");
+                      }).onError((error, stackTrace) {
+                        Utils().onError(error.toString());
+                      });
+                    },
+                    child: const Text('update')),
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('cancel'))
+              ],
+            ));
   }
 }

@@ -21,11 +21,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text(
-          'Role Based App',
-          style: TextStyle(fontSize: 30),
+        child: Image(image: AssetImage('assets/splash_icon.png'), height: 250,)
+
         ),
-      ),
-    );
+      );
+
   }
 }

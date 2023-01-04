@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Role Base App',
         theme: ThemeData(
-          //
+          backgroundColor: Colors.white,
           // font-weight: ,
           primarySwatch: Colors.deepPurple,
         ),

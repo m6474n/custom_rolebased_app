@@ -43,11 +43,15 @@ dependencies:
   firebase_storage: ^11.0.10
   fluttertoast: ^8.1.2
   firebase_database: ^10.0.9
+  flutter_launcher_icons: ^0.11.0
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_native_splash:
+
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -55,10 +59,15 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
+  
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
+flutter_native_splash:
+  color: '#ffffff'
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -68,10 +77,14 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
-
+  assets:
+    - assets/login.png
+    - assets/icon.png
+    - assets/splash_icon.png
+    - assets/register.png
+    - assets/phone_auth.png
+    - assets/auth.png
+    - assets/post.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

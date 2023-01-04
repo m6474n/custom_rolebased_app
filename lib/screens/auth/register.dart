@@ -60,16 +60,15 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset : false,
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // const Text(
-            //   'Did not have any account?',
-            //   style: TextStyle(
-            //     fontSize: 16,
-            //   ),
-            // ),
+            Image(image: AssetImage('assets/register.png'),height: 230,),
+            const SizedBox(
+              height: 20,
+            ),
             const Text(
               'Create New Account',
               style: TextStyle(
@@ -80,7 +79,7 @@ class _RegisterState extends State<Register> {
             ),
 
             const SizedBox(
-              height: 80,
+              height: 40,
             ),
 
             Form(

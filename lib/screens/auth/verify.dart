@@ -22,11 +22,17 @@ class _VerificationPageState extends State<VerificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title:const  Text('Verify OTP'),),
+        resizeToAvoidBottomInset : false,
+      appBar: AppBar(title:const Center(child:   Text('Verify OTP')),
+      automaticallyImplyLeading: false),
         body: Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         children: [
+          const SizedBox(
+            height: 30,
+          ),
+          Image(image: AssetImage('assets/auth.png') ,height: 200,),
           const SizedBox(
             height: 30,
           ),
@@ -49,8 +55,9 @@ class _VerificationPageState extends State<VerificationPage> {
                     smsCode: verifyController.text.toString());
                 try {
                   await auth.signInWithCredential(authCredentials);
+                  Utils().onSuccess('Verification Successful!');
                     Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => StudentScreen()));
+                      MaterialPageRoute(builder: (context) => const StudentScreen()));
                 } catch (e) {
                   setState(() {
                     loading = false;

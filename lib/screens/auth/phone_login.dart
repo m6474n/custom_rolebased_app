@@ -20,17 +20,19 @@ class _PhoneLoginState extends State<PhoneLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Phone Number Verification'),),
+        resizeToAvoidBottomInset : false,
+     appBar: AppBar(title: Text('Login with Phone'),),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             children: [
+              SafeArea(child: Image(image: AssetImage('assets/phone_auth.png'),height: 300,)),
               const  SizedBox(height: 30,),
               TextFormField(
                 controller: phoneController,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    label: Text('Phone Number'),
+                    label: Text('Enter Phone Number'),
                     hintText: '+1 234 4567 6789'
                 ),
               )
@@ -71,7 +73,8 @@ class _PhoneLoginState extends State<PhoneLogin> {
 
                       Utils().onError(e.toString());
                     });
-              })
+              }),
+
             ],
           ),
         )

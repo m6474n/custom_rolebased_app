@@ -60,125 +60,127 @@ class _LoginScreenState extends State<LoginScreen> {
         return true;
       },
       child: Scaffold(
-        body: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                'Welcome Back',
-                style: TextStyle(
-                    fontSize: 36,
-                    color: Colors.deepPurple,
-                    fontWeight: FontWeight.bold),
-              ),
-              const Text(
-                'Login to your account.',
-                style: TextStyle(
-                  fontSize: 16,
+        resizeToAvoidBottomInset : false,
+        body: SingleChildScrollView(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SafeArea(child: Image(image: AssetImage('assets/login.png'), height: 280,)),
+                const Text(
+                  'Welcome Back',
+                  style: TextStyle(
+                      fontSize: 36,
+                      color: Colors.deepPurple,
+                      fontWeight: FontWeight.bold),
                 ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Form(
-                key: _formKey,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: emailController,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.email_outlined),
-                          hintText: 'Email',
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter Email';
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        obscureText: true,
-                        controller: passwordController,
-                        decoration: const InputDecoration(
-                          prefixIcon: Icon(Icons.lock_open_outlined),
-                          hintText: 'Password',
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Enter Password';
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      RoundButton(
-                        title: 'Login',
-                        loading: loading,
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            login();
-                          }
-                        },
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text("Don't have any account?",
-                              style: TextStyle(fontSize: 16)),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const Register()));
-                              },
-                              child: const Text('Register.',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                  )))
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> const PhoneLogin()));
-                      },
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          border:  Border.all(color: Colors.deepPurple),
-                          borderRadius: BorderRadius.circular(10),
-
-
-                        ),
-                        child:const Center(child: Text('Login with Phone', style: TextStyle(fontSize: 15, color: Colors.deepPurple),)),
-                      ),
-                    )
-                    ],
+                const Text(
+                  'Login to your account.',
+                  style: TextStyle(
+                    fontSize: 16,
                   ),
                 ),
-              ),
-            ]),
+                const SizedBox(
+                  height: 30,
+                ),
+                Form(
+                  key: _formKey,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: emailController,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.email_outlined),
+                            hintText: 'Email',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter Email';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        TextFormField(
+                          obscureText: true,
+                          controller: passwordController,
+                          decoration: const InputDecoration(
+                            prefixIcon: Icon(Icons.lock_open_outlined),
+                            hintText: 'Password',
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Enter Password';
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
+
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        RoundButton(
+                          title: 'Login',
+                          loading: loading,
+                          onTap: () {
+                            if (_formKey.currentState!.validate()) {
+                              login();
+                            }
+                          },
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text("Don't have any account?",
+                                style: TextStyle(fontSize: 16)),
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const Register()));
+                                },
+                                child: const Text('Register.',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    )))
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> const PhoneLogin()));
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            border:  Border.all(color: Colors.deepPurple),
+                            borderRadius: BorderRadius.circular(10),
+
+
+                          ),
+                          child:const Center(child: Text('Login with Phone', style: TextStyle(fontSize: 15, color: Colors.deepPurple),)),
+                        ),
+                      ),
+                      ],
+                    ),
+                  ),
+                ),
+              ]),
+        ),
       ),
     );
   }

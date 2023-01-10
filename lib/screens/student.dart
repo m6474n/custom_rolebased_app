@@ -101,8 +101,10 @@ class _StudentScreenState extends State<StudentScreen> {
 //////////////////// Firebase Animated List////////////////////////
           Expanded(
             child: FirebaseAnimatedList(
+
                 query: ref,
                 itemBuilder: (context, snapshot, animation, index) {
+
 //////////////////// Filter List  Using Search Bar /////////////////////
                   final title = snapshot.child('message').value.toString();
                   if (searchController.text.isEmpty) {
@@ -137,8 +139,32 @@ class _StudentScreenState extends State<StudentScreen> {
                       .toLowerCase()
                       .contains(searchController.text.toLowerCase())) {
                     return ListTile(
-                      title: Text(snapshot.child('message').value.toString()),
-                    );
+                        title: Text(snapshot.child('message').value.toString()),
+                        trailing: PopupMenuButton(
+                          icon: const Icon(Icons.more_vert),
+                          itemBuilder: (context) => [
+                            PopupMenuItem(
+                                child: ListTile(
+                                  leading: const Icon(Icons.edit),
+                                  title: const Text('Edit'),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    showMyDialogue(title,
+                                        snapshot.child('id').value.toString());
+                                  },
+                                )),
+                            PopupMenuItem(
+                                child: ListTile(
+
+                                  leading: const Icon(Icons.delete),
+                                  title:const Text('Delete'),
+                                  onTap: (){
+                                    Navigator.pop(context);
+                                    ref.child(snapshot.child('id').value.toString()).remove();
+                                  },
+                                )),
+                          ],
+                        ));
                   } else {
                     return Container();
                   }

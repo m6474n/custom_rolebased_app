@@ -7,6 +7,9 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:role_based_app/firestore/post_screen.dart';
+import 'package:role_based_app/firestore/upload_image.dart';
+import 'package:role_based_app/screens/admin.dart';
 import 'package:role_based_app/screens/auth/login.dart';
 import 'package:role_based_app/screens/student.dart';
 
@@ -21,7 +24,7 @@ class SplashServices {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const StudentScreen()))
+                        builder: (context) => const AdminScreen()))
               });
     } else {
       Timer(

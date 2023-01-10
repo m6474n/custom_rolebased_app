@@ -3,6 +3,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:role_based_app/firestore/post_screen.dart';
+import 'package:role_based_app/firestore/upload_image.dart';
+import 'package:role_based_app/screens/admin.dart';
 import 'package:role_based_app/screens/auth/phone_login.dart';
 import 'package:role_based_app/screens/auth/register.dart';
 import 'package:role_based_app/screens/student.dart';
@@ -43,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
         loading = false;
       });
       Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const StudentScreen()));
+          MaterialPageRoute(builder: (context) => const AdminScreen()));
     }).onError((error, stackTrace) {
       setState(() {
         loading = false;
@@ -66,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SafeArea(child: Image(image: AssetImage('assets/login.png'), height: 280,)),
+                const SafeArea(child: Image(image: AssetImage('assets/login.png'), height: 280,)),
                 const Text(
                   'Welcome Back',
                   style: TextStyle(

@@ -44,6 +44,7 @@ dependencies:
   fluttertoast: ^8.1.2
   firebase_database: ^10.0.9
   flutter_launcher_icons: ^0.11.0
+  image_picker: ^0.8.6
 
 
 dev_dependencies:
@@ -85,6 +86,11 @@ flutter:
     - assets/phone_auth.png
     - assets/auth.png
     - assets/post.png
+    - assets/firestore_post.png
+    - assets/firestore.png
+    - assets/firebase.png
+    - assets/add_user.png
+    - assets/upload.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
